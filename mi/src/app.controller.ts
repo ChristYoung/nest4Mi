@@ -9,4 +9,9 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
+
+  @Get('yj')
+  getUserName(): string {
+    return 'hello 杨杰!';
+  }
 }
