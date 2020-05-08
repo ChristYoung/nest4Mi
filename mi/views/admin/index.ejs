@@ -11,9 +11,17 @@
         <%=name%>
     </div>
     <div class="sec-2">
+        上传单个文件
         <form>
             <input name="file" type="file" id="inputFile"> 
             <button id="uploadBtn" type="button">确认上传</button>
+        </form>
+    </div>
+    <div style="margin-top: 158px;" class="sec-3">
+        上传多个文件
+        <form>
+            <input name="file2" type="file" multiple="multiple" id="inputFile2"> 
+            <button id="uploadBtn2" type="button">确认上传</button>
         </form>
     </div>
 </body>
@@ -29,7 +37,7 @@
         formFile.append('file', fileObj);
 
     $.ajax({
-            url:'http://localhost:3000/article/upload',
+            url:'http://localhost:8080/article/upload',
             data: formFile,
             type: "POST",
             dataType: "json",
@@ -40,8 +48,37 @@
             //必须
              contentType: false, 
              success: function (res) {
-               console.log('文件上传成功~~');
-               alert('上传文件成功!!');
+               alert(res.msg);
+             },
+         }) 
+    });
+</script>
+
+<script>
+    var $inputFile2 = $('#inputFile2');
+    var $uploadBtn2 = $('#uploadBtn2');
+
+    $uploadBtn2.on('click', function() {
+        var formFile = new FormData();
+        var files = $inputFile2[0].files;
+        for (let index = 0; index < files.length; index++) {
+            // 上传多个文件需要多次执行formFile.append, 而不是一次性将多个文件append进formFile中
+            formFile.append('files', files[index]);
+        }
+        console.log("files", files);
+    $.ajax({
+            url:'http://localhost:8080/article/uploadMany',
+            data: formFile,
+            type: "POST",
+            dataType: "json",
+            //上传文件无需缓存
+             cache: false,
+            //用于对data参数进行序列化处理 这里必须false
+            processData: false,
+            //必须
+             contentType: false, 
+             success: function (res) {
+               alert(res.msg);
              },
          }) 
     });

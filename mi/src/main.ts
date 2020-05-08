@@ -25,7 +25,7 @@ async function bootstrap() {
     },
   ));
 
-  await app.listen(3000);
-  console.log('服务启动成功,', 'http://localhost:3000');
+  await app.listen(8080);
+  console.log('服务启动成功,', 'http://localhost:8080');
 }
 bootstrap();

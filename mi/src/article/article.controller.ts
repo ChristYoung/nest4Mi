@@ -1,5 +1,7 @@
-import { Controller, Get, Query, Param, Post, Body, Request, UseInterceptors, UploadedFile } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { Controller, Get, Query, Param, Post, Body, Request, UseInterceptors, UploadedFile, UploadedFiles } from '@nestjs/common';
+import { FileInterceptor, FileFieldsInterceptor, FilesInterceptor } from '@nestjs/platform-express';
+import { createWriteStream } from 'fs';
+import { join } from 'path';
 
 @Controller('article')
 export class ArticleController {
@@ -37,10 +39,31 @@ export class ArticleController {
         console.log('这是一个post请求bbb', req.body.gender); // 前端请求的入参数据从req.body中获取
     }
 
-    // @Post('upload')
-    // @UseInterceptors(FileInterceptor('file')) // 接收fprmData的key值
-    // uploadFile(@UploadedFile() file: any) {
-    //     console.log('当前上传到服务器的文件是: ', file);
-    // }
+    @Post('upload')
+    @UseInterceptors(FileInterceptor('file')) // 接收fprmData的key值
+    uploadFile(@UploadedFile() file: any) {
+        console.log('当前上传到服务器的文件是: ', file);
+
+        // 创建一个写入文件流
+        // createWriteStream第二个参数是写入服务器的文件的名称
+        const writeStream = createWriteStream(join(__dirname, '../../public/upload', `${file.originalname}`));
+
+        // 执行文件写入
+        writeStream.write(file.buffer);
+
+        return { msg: '上传图片成功~~' };
+    }
+
+    // 演示上传多个文件
+    @Post('uploadMany')
+    @UseInterceptors(FilesInterceptor('files'))
+    uploadManyFiles(@UploadedFiles() files: any) {
+        console.log('当前上传到服务器的多个~文件是', files);
+        for (const f of files) {
+            const writeStream = createWriteStream(join(__dirname, '../../public/upload', `${f.originalname}`));
+            writeStream.write(f.buffer);
+        }
+        return { msg: '当前上传到服务器的多个~文件是' };
+    }
 
 }
