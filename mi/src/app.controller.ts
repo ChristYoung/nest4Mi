@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Render } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -11,7 +11,9 @@ export class AppController {
   }
 
   @Get('yj')
-  getUserName(): string {
-    return 'hello 杨杰!';
+  @Render('admin/index')
+  getUserName() {
+    const name = '杨杰';
+    return { name };
   }
 }

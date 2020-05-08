@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="sec-1">
+        <p>我是模板引擎~~</p>
+        <%=name%>
+    </div>
+    <div class="sec-2">
+        <form>
+            <input name="file" type="file" id="inputFile"> 
+            <button id="uploadBtn" type="button">确认上传</button>
+        </form>
+    </div>
+</body>
+<script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    var $inputFile, $uploadBtn;
+    $inputFile = $('#inputFile');
+    $uploadBtn = $('#uploadBtn');
+
+    $uploadBtn.on('click', function() {
+        var formFile = new FormData();
+        var fileObj = $inputFile[0].files[0];
+        formFile.append('file', fileObj);
+
+    $.ajax({
+            url:'http://localhost:3000/article/upload',
+            data: formFile,
+            type: "POST",
+            dataType: "json",
+            //上传文件无需缓存
+             cache: false,
+            //用于对data参数进行序列化处理 这里必须false
+            processData: false,
+            //必须
+             contentType: false, 
+             success: function (res) {
+               console.log('文件上传成功~~');
+               alert('上传文件成功!!');
+             },
+         }) 
+    });
+</script>
+</html>
