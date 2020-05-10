@@ -2,13 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { ArticleModel } from 'src/model/article.model';
 import { ArticleDto } from 'src/dto/article.dto';
 import { InjectModel } from 'nestjs-typegoose';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class ArticleService {
 
     // 将ArticleModel以依赖注入的方式引入进来
     constructor(
-        @InjectModel(ArticleModel) private readonly articleModel: any,
+        @InjectModel(ArticleModel) private readonly articleModel: Model<any>,
     ) {
 
     }
