@@ -4,6 +4,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import * as session from 'express-session';
 import { join } from 'path';
 import * as mongoose from 'mongoose';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
 
@@ -16,6 +17,9 @@ async function bootstrap() {
 
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
+  // 开启全局验证的管道
+  app.useGlobalPipes(new ValidationPipe());
+
   // 构建静态资源配置
   app.useStaticAssets(join(__dirname, '..', 'public'), {
     prefix: '/static/', // 配置虚拟目录
@@ -23,7 +27,7 @@ async function bootstrap() {
 
   // 配置模板引擎
   app.setBaseViewsDir(join(__dirname, '..', 'views')); // 配置模板文件的放置目录
-  app.setViewEngine('ejs'); // 以ejs作为模板引擎
+  app.setViewEngine('ejs'); // 以ejs为模板引擎
 
   // 配置session中间件
   app.use(session(
