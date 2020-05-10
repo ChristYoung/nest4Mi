@@ -3,7 +3,7 @@ import { FileInterceptor, FileFieldsInterceptor, FilesInterceptor } from '@nestj
 import { ArticleService } from 'src/service/article/article.service';
 import { createWriteStream } from 'fs';
 import { join } from 'path';
-import { ArticleDto } from 'src/dto/article.dto';
+import { ArticleModel } from 'src/model/article.model';
 
 @Controller('article')
 export class ArticleController {
@@ -78,7 +78,7 @@ export class ArticleController {
 
     // 创建文章
     @Post('addArticle')
-    async addArticle(@Body() articleDto: ArticleDto) {
+    async addArticle(@Body() articleDto: ArticleModel) {
         await this.articleService.addArticle(articleDto);
         return { succes: true, msg: '创建成功~' };
     }

@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { ArticleModel } from 'src/model/article.model';
-import { ArticleDto } from 'src/dto/article.dto';
 import { InjectModel } from 'nestjs-typegoose';
 import { ModelType } from '@typegoose/typegoose/lib/types';
 
@@ -20,7 +19,7 @@ export class ArticleService {
     }
 
     // 创建一篇文章
-    async addArticle(articleDto: ArticleDto) {
+    async addArticle(articleDto: ArticleModel) {
         return await this.articleModel.create(articleDto);
     }
 
