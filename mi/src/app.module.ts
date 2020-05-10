@@ -4,11 +4,15 @@ import { AppService } from './app.service';
 import { LoggerMiddleware } from './middleware/logger.middleware';
 import { ArticleModule } from './article/article.module';
 import { ApiModule } from './api/api.module';
+import { TypegooseModule } from 'nestjs-typegoose';
 
 @Module({
   imports: [
     ArticleModule,
     ApiModule,
+    TypegooseModule.forRoot('mongodb://localhost/mi4', { // 配置链接数据库
+      useNewUrlParser: true,
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],

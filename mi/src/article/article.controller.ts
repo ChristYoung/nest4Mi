@@ -3,7 +3,6 @@ import { FileInterceptor, FileFieldsInterceptor, FilesInterceptor } from '@nestj
 import { ArticleService } from 'src/service/article/article.service';
 import { createWriteStream } from 'fs';
 import { join } from 'path';
-import { ArticleModel } from '../model/article.model';
 import { ArticleDto } from 'src/dto/article.dto';
 
 @Controller('article')
@@ -73,14 +72,14 @@ export class ArticleController {
     // 获取全部的文章
     @Get('getAllArticles')
     async getAllArticles() {
-        const res = await this.articleService.findAll();
+        const res = await this.articleService.getAllArticles();
         return { res, msg: '查询成功~~' };
     }
 
     // 创建文章
     @Post('addArticle')
     async addArticle(@Body() articleDto: ArticleDto) {
-        await ArticleModel.create(articleDto);
+        await this.articleService.addArticle(articleDto);
         return { succes: true, msg: '创建成功~' };
     }
 

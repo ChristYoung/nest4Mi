@@ -1,7 +1,6 @@
-// 使用了typegoose定义的model后, 就相当于定义了之前的Schema
-import { getModelForClass, prop } from '@typegoose/typegoose';
+import { prop } from '@typegoose/typegoose';
 
-export class Article {
+export class ArticleModel {
     @prop()
     title: string;
 
@@ -14,5 +13,3 @@ export class Article {
     @prop()
     status: number;
 }
-
-export const ArticleModel = getModelForClass(Article);
