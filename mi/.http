@@ -1,15 +1,24 @@
-POST http://localhost:3000/article/create
+POST http://localhost:8080/article/create
 content-type: application/json
 
 { "name": "lh", "gender": "女" }
 ###
 
-GET http://localhost:3000/article/add2/lh/sao
+GET http://localhost:8080/article/add2/lh/sao
 Content-Type: application/json
 ###
 
-POST http://localhost:3000/article/update
+POST http://localhost:8080/article/update
 content-type: application/json
 
 { "name": "lh", "gender": "女" }
 ###
+
+POST http://localhost:8080/article/addArticle
+content-type: application/json
+
+{ "title": "lh", "author": "女", "keywords": "第三方", "status": 88 }
+###
+
+GET http://localhost:8080/article/getAllArticles
+Content-Type: application/json

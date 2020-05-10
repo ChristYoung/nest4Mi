@@ -3,6 +3,7 @@ import { FileInterceptor, FileFieldsInterceptor, FilesInterceptor } from '@nestj
 import { ArticleService } from 'src/service/article/article.service';
 import { createWriteStream } from 'fs';
 import { join } from 'path';
+import { ArticleModel } from './article.model';
 
 @Controller('article')
 export class ArticleController {
@@ -16,27 +17,25 @@ export class ArticleController {
 
     // 适用于 add?id=33&code=66 类型的路由
     @Get('add')
-    addArticle(@Query() query: { [key: string]: string }) {
+    testArticle1(@Query() query: { [key: string]: string }) {
         console.log('query', query);
         return query;
     }
 
     // 适用于 add/33/66 类型的路由
     @Get('add2/:id/:code')
-    addArticle2(@Param('id') id: string, @Param('code') code: string) {
-        console.log('addArticle2 -> id', id);
-        console.log('addArticle2 -> code', code);
+    testArticle2(@Param('id') id: string, @Param('code') code: string) {
         return { id, code };
     }
 
     @Post('create')
-    create(@Body() body: any) {
+    testCreate(@Body() body: any) {
         console.log('这是一个post请求', body);
         return body;
     }
 
     @Post('update')
-    update(@Request() req: any) {
+    testUpdate(@Request() req: any) {
         req.session.usename = 'kingJay';
         console.log('这是一个post请求aaa', req.session.usename); // 获取服务器上的session从req.session中获取
         console.log('这是一个post请求bbb', req.body.gender); // 前端请求的入参数据从req.body中获取
@@ -75,6 +74,13 @@ export class ArticleController {
     async getAllArticles() {
         const res = await this.articleService.findAll();
         return { res, msg: '' };
+    }
+
+    // 创建文章
+    @Post('addArticle')
+    async addArticle(@Body() articleDto: any) {
+        await ArticleModel.create(articleDto);
+        return { succes: true, msg: '创建成功~' };
     }
 
 }
