@@ -1,10 +1,13 @@
-import { Controller, Get, Query, Param, Post, Body, Request, UseInterceptors, UploadedFile, UploadedFiles } from '@nestjs/common';
+import { Controller, Get, Query, Param, Post, Body, Request, UseInterceptors, UploadedFile, UploadedFiles, UsePipes } from '@nestjs/common';
 import { FileInterceptor, FileFieldsInterceptor, FilesInterceptor } from '@nestjs/platform-express';
+import { ArticleService } from 'src/service/article/article.service';
 import { createWriteStream } from 'fs';
 import { join } from 'path';
 
 @Controller('article')
 export class ArticleController {
+
+    constructor(private articleService: ArticleService) {}
 
     @Get()
     index(): string {
@@ -13,7 +16,7 @@ export class ArticleController {
 
     // 适用于 add?id=33&code=66 类型的路由
     @Get('add')
-    addArticle(@Query() query: {[key: string]: string}) {
+    addArticle(@Query() query: { [key: string]: string }) {
         console.log('query', query);
         return query;
     }
@@ -39,8 +42,9 @@ export class ArticleController {
         console.log('这是一个post请求bbb', req.body.gender); // 前端请求的入参数据从req.body中获取
     }
 
+    // 上传单个文件
     @Post('upload')
-    @UseInterceptors(FileInterceptor('file')) // 接收fprmData的key值
+    @UseInterceptors(FileInterceptor('file')) // 接收formData的key值
     uploadFile(@UploadedFile() file: any) {
         console.log('当前上传到服务器的文件是: ', file);
 
@@ -54,7 +58,7 @@ export class ArticleController {
         return { msg: '上传图片成功~~' };
     }
 
-    // 演示上传多个文件
+    // 上传多个文件
     @Post('uploadMany')
     @UseInterceptors(FilesInterceptor('files'))
     uploadManyFiles(@UploadedFiles() files: any) {
@@ -64,6 +68,13 @@ export class ArticleController {
             writeStream.write(f.buffer);
         }
         return { msg: '当前上传到服务器的多个~文件是' };
+    }
+
+    // 获取全部的文章
+    @Get('getAllArticles')
+    async getAllArticles() {
+        const res = this.articleService.findAll();
+        return { res, msg: '' };
     }
 
 }
