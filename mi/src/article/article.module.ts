@@ -5,16 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ArticleService } from 'src/service/article/article.service';
 
 @Module({
-  imports: [
-      // 配置数据库model
-      MongooseModule.forFeature([
-        {
-            name: 'Article',
-            schema: ArticleSchema,
-            collection: 'article',
-        },
-      ]),
-    ],
+  imports: [],
   controllers: [ArticleController],
   providers: [ArticleService],
 })

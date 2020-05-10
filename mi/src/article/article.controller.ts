@@ -73,7 +73,7 @@ export class ArticleController {
     // 获取全部的文章
     @Get('getAllArticles')
     async getAllArticles() {
-        const res = this.articleService.findAll();
+        const res = await this.articleService.findAll();
         return { res, msg: '' };
     }
 

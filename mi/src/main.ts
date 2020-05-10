@@ -3,8 +3,17 @@ import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import * as session from 'express-session';
 import { join } from 'path';
+import * as mongoose from 'mongoose';
 
 async function bootstrap() {
+
+  // 配置数据录链接
+  mongoose.connect('mongodb://localhost/mi4', {
+    useNewUrlParser: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+  });
+
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   // 构建静态资源配置
