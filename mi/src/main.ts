@@ -25,6 +25,7 @@ async function bootstrap() {
   app.use(session(
     {
       secret: 'keyboard cat',
+      resave: true,
       cookie: { maxAge: 60000, httpOnly: true },
       rolling: true, // 每次请求session后, 都将过期时间再次延长
     },
