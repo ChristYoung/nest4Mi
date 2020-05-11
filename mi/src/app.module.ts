@@ -1,10 +1,9 @@
 import { Module, MiddlewareConsumer, NestModule } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { LoggerMiddleware } from './middleware/logger.middleware';
-import { ArticleModule } from './article/article.module';
-import { ApiModule } from './api/api.module';
+import { ArticleModule } from './module/article/article.module';
+import { ApiModule } from './module/api/api.module';
 import { TypegooseModule } from 'nestjs-typegoose';
+import { AdminModule } from './module/admin/admin.module';
 
 @Module({
   imports: [
@@ -13,9 +12,10 @@ import { TypegooseModule } from 'nestjs-typegoose';
     TypegooseModule.forRoot('mongodb://localhost/mi4', { // 配置链接数据库
       useNewUrlParser: true,
     }),
+    AdminModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule implements NestModule {
 
