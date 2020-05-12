@@ -4,10 +4,21 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import * as session from 'express-session';
 import { join } from 'path';
 import { ValidationPipe } from '@nestjs/common';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 async function bootstrap() {
 
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+  // 全局配置swagger
+  const options = new DocumentBuilder()
+    .setTitle('Mi')
+    .setDescription('MI')
+    .setVersion('1.0')
+    .addTag('Mi')
+    .build();
+  const document = SwaggerModule.createDocument(app, options);
+  SwaggerModule.setup('doc', app, document);
 
   // 开启全局验证的管道
   app.useGlobalPipes(new ValidationPipe());
