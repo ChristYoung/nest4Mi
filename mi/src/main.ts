@@ -13,7 +13,7 @@ async function bootstrap() {
   // 全局配置swagger
   const options = new DocumentBuilder()
     .setTitle('Mi')
-    .setDescription('MI')
+    .setDescription('供使用NestJs学习的接口文档')
     .setVersion('1.0')
     .addTag('Mi')
     .build();
@@ -42,6 +42,6 @@ async function bootstrap() {
   ));
 
   await app.listen(8080);
-  console.log('服务启动成功,', 'http://localhost:8080');
+  console.log('服务启动成功,', 'http://localhost:8080/doc');
 }
 bootstrap();

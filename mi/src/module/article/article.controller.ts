@@ -4,7 +4,6 @@ import { ArticleService } from 'src/service/article/article.service';
 import { createWriteStream } from 'fs';
 import { join } from 'path';
 import { ArticleModel } from '@db/db/model/article.model';
-import { InjectModel } from 'nestjs-typegoose';
 
 @Controller('article')
 export class ArticleController {
