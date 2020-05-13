@@ -3,8 +3,8 @@ import { prop } from '@typegoose/typegoose';
 export class MangerModel {
 
     @prop()
-    userName: string;
+    userName: string; // 用户名
 
     @prop()
-    password: string;
+    password: string; // 密码
 }
