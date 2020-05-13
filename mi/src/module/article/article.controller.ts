@@ -3,12 +3,15 @@ import { FileInterceptor, FileFieldsInterceptor, FilesInterceptor } from '@nestj
 import { ArticleService } from 'src/service/article/article.service';
 import { createWriteStream } from 'fs';
 import { join } from 'path';
-import { ArticleModel } from 'src/model/article.model';
+import { ArticleModel } from '@db/db/model/article.model';
+import { InjectModel } from 'nestjs-typegoose';
 
 @Controller('article')
 export class ArticleController {
 
-    constructor(private articleService: ArticleService) { }
+    constructor(
+        private articleService: ArticleService,
+    ) { }
 
     @Get()
     index(): string {
@@ -18,7 +21,7 @@ export class ArticleController {
     // 渲染一个页面
     @Get('yj')
     @Render('admin/index')
-    renderPageByServer() {
+    testRenderPageByServer() {
         const name = '杨杰';
         return { name };
     }
@@ -52,7 +55,7 @@ export class ArticleController {
     // 上传单个文件
     @Post('upload')
     @UseInterceptors(FileInterceptor('file')) // 接收formData的key值
-    uploadFile(@UploadedFile('file') file: any) {
+    testUploadFile(@UploadedFile('file') file: any) {
         console.log('当前上传到服务器的文件是: ', file);
 
         // 创建一个写入文件流
@@ -69,7 +72,7 @@ export class ArticleController {
     // 以Nodejs的方式手动将前端传入的buffer文件写入到服务器的upload路径中
     @Post('uploadMany')
     @UseInterceptors(FilesInterceptor('files'))
-    uploadManyFiles(@UploadedFiles() files: any) {
+    testUploadManyFiles(@UploadedFiles() files: any) {
         console.log('当前上传到服务器的多个~文件是', files);
         for (const f of files) {
             const writeStream = createWriteStream(join(__dirname, '../../public/upload', `${f.originalname}`));

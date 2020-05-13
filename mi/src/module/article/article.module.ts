@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ArticleController } from './article.controller';
 import { ArticleService } from 'src/service/article/article.service';
 import { TypegooseModule } from 'nestjs-typegoose';
-import { ArticleModel } from 'src/model/article.model';
+import { ArticleModel } from '@db/db/model/article.model';
 import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
@@ -16,4 +16,4 @@ import { MulterModule } from '@nestjs/platform-express';
   controllers: [ArticleController],
   providers: [ArticleService],
 })
-export class ArticleModule {}
+export class ArticleModule { }

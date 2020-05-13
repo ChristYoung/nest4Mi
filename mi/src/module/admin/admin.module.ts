@@ -4,6 +4,6 @@ import { LoginController } from './login/login.controller';
 import { MangerController } from './manger/manger.controller';
 
 @Module({
-  controllers: [MainController, LoginController, MangerController]
+  controllers: [MainController, LoginController, MangerController],
 })
-export class AdminModule {}
+export class AdminModule { }
