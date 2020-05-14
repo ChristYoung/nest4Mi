@@ -16,6 +16,8 @@ export class MangerModel {
     userName: string; // 用户名
 
     @ApiProperty({ description: '密码', example: 'pass1' })
-    @prop()
+    @prop({
+        select: false, // 表示在常规的数据库查询中, 不把密码给返回给前端
+    })
     password: string; // 密码
 }
