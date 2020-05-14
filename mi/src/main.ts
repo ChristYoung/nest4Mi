@@ -15,6 +15,7 @@ async function bootstrap() {
     .setTitle('Mi')
     .setDescription('供使用NestJs学习的接口文档')
     .setVersion('1.0')
+    .addBearerAuth() // 在调用swagger接口的时候, 需要先进行token验证
     .addTag('Mi')
     .build();
   const document = SwaggerModule.createDocument(app, options);
