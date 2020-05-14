@@ -4,10 +4,10 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class RegisterDto {
 
-    @ApiProperty({ name: '用户名' })
+    @ApiProperty({ description: '用户名' })
     userName: string;
 
-    @ApiProperty({ name: '登录密码' })
+    @ApiProperty({ description: '密码' })
     password?: string;
 
     [key: string]: any; // 允许前端传入冗余的字段
