@@ -6,6 +6,10 @@
     "db": {
       "root": "libs/db",
       "sourceRoot": "libs/db/src"
+    },
+    "common": {
+      "root": "libs/common",
+      "sourceRoot": "libs/common/src"
     }
   }
 }

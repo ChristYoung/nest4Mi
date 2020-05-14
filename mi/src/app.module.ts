@@ -3,11 +3,11 @@ import { LoggerMiddleware } from './middleware/logger.middleware';
 import { ArticleModule } from './module/article/article.module';
 import { ApiModule } from './module/api/api.module';
 import { AdminModule } from './module/admin/admin.module';
-import { DbModule } from '@db/db';
+import { CommonModule } from '@common/common';
 
 @Module({
   imports: [
-    DbModule,
+    CommonModule,
     ArticleModule,
     ApiModule,
     AdminModule,

@@ -15,6 +15,12 @@
       ],
       "@db/db/*": [
         "libs/db/src/*"
+      ],
+      "@common/common": [
+        "libs/common/src"
+      ],
+      "@common/common/*": [
+        "libs/common/src/*"
       ]
     }
   },

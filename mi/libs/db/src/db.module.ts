@@ -11,11 +11,18 @@ const models = TypegooseModule.forFeature([ArticleModel, MangerModel]);
 @Global()
 @Module({
   imports: [
-    TypegooseModule.forRoot('mongodb://localhost/mi4', { // 配置链接数据库
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
+    // 配置异步加载的方式链接数据库
+    // 在获取配置文件的common.module获取成功后, 才读取process.env.DB
+    TypegooseModule.forRootAsync({
+      useFactory: () => {
+        return {
+          uri: process.env.DB,
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
+          useCreateIndex: true,
+          useFindAndModify: false,
+        };
+      },
     }),
     models,
   ],

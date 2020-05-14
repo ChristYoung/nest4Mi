@@ -41,7 +41,8 @@ async function bootstrap() {
     },
   ));
 
-  await app.listen(8080);
-  console.log('服务启动成功,', 'http://localhost:8080/doc');
+  const SERVER_PORT = process.env.SERVER_PORT || '8080'; // 服务器的端口, 从.env的配置文件中获取, 默认8080
+  await app.listen(SERVER_PORT);
+  console.log('服务启动成功,', `http://localhost:${SERVER_PORT}/doc`);
 }
 bootstrap();
