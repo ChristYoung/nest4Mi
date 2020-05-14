@@ -16,13 +16,6 @@ export class MangerModel {
     userName: string; // 用户名
 
     @ApiProperty({ description: '密码', example: 'pass1' })
-    @prop({
-        get(val) {
-            return val;
-        },
-        set(val) {
-            return val ? val : hashSync(val);
-        },
-    })
+    @prop()
     password: string; // 密码
 }

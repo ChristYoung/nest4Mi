@@ -5,6 +5,7 @@ import { RegisterDto } from 'src/dto/register.dto';
 import { InjectModel } from 'nestjs-typegoose';
 import { MangerModel } from '@db/db/model/manger.model';
 import { ReturnModelType } from '@typegoose/typegoose';
+import { hashSync } from 'bcryptjs';
 
 @Controller('auth')
 @ApiTags('用户登录注册')
@@ -17,8 +18,9 @@ export class LoginController {
     // 注册
     @Post('register')
     @ApiOperation({ summary: '用户注册' })
-    async register(@Body() dto: RegisterDto) {
-        const { userName, password } = dto;
+    async register(@Body() registerDto: RegisterDto) {
+        const userName = registerDto.userName;
+        const password = hashSync(registerDto.password); // 对前端传入的密码进行散列处理
         const manger = await this.mangerModel.create({ userName, password }); // 在manger表中新增一条数据
         return manger;
     }
